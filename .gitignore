@@ -1,0 +1,27 @@
+# Binários gerados pelo PyInstaller
+build/
+dist/
+*.spec
+
+# Banco de dados SQLite local
+*.db
+
+# Cache Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtualenv
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db

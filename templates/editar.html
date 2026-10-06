@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Item</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <h1 class="mb-4">✏️ Editar: {{ obra['titulo'] }}</h1>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form action="/salvar_edicao/{{ obra['id'] }}" method="POST">
+                <div class="mb-3">
+                    <label class="form-label">Título</label>
+                    <input type="text" name="titulo" class="form-control" value="{{ obra['titulo'] }}" required>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label class="form-label">Tipo</label>
+                        <select name="tipo" class="form-select" required>
+                            <option value="Filme" {% if obra['tipo'] == 'Filme' %}selected{% endif %}>Filme</option>
+                            <option value="Série" {% if obra['tipo'] == 'Série' %}selected{% endif %}>Série</option>
+                            <option value="Documentário" {% if obra['tipo'] == 'Documentário' %}selected{% endif %}>Documentário</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Ano</label>
+                        <input type="number" name="ano_lancamento" class="form-control" value="{{ obra['ano_lancamento'] }}" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Status</label>
+                        <select name="status" class="form-select">
+                            <option value="Finalizado" {% if obra['status'] == 'Finalizado' %}selected{% endif %}>Finalizado</option>
+                            <option value="Em Exibição" {% if obra['status'] == 'Em Exibição' %}selected{% endif %}>Em Exibição</option>
+                            <option value="Cancelado" {% if obra['status'] == 'Cancelado' %}selected{% endif %}>Cancelado</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Sinopse</label>
+                    <textarea name="sinopse" class="form-control" rows="3">{{ obra['sinopse'] }}</textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">URL da Capa (Link da Imagem)</label>
+                    <input type="text" name="poster_url" class="form-control" value="{{ obra['poster_url'] }}">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Gêneros:</label>
+                    <div class="border p-2 rounded">
+                        {% for gen in generos %}
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="generos" value="{{ gen['id'] }}" id="edit_gen_{{ gen['id'] }}" {% if gen['id']|string in ids_generos_da_obra %}checked{% endif %}>
+                                <label class="form-check-label" for="edit_gen_{{ gen['id'] }}">{{ gen['nome'] }}</label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a href="/" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-success">Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
